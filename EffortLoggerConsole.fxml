@@ -46,6 +46,8 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
+                  <Button fx:id="EncryptDataButton" layoutX="51.0" layoutY="360.0" mnemonicParsing="false" text="Encrypt data" />
+                  <Button fx:id="DecryptDataButton" layoutX="443.0" layoutY="360.0" mnemonicParsing="false" text="Decrypt data" />
                </children>
             </Pane>
          </content>
