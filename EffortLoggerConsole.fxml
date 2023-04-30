@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 
 <TabPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EffortLoggerConsoleController">
@@ -53,8 +54,8 @@
          </content>
       </Tab>
       <Tab text="Effort Logger Adder">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="26.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" width="600.0" />
                   <Label alignment="CENTER" layoutY="1.0" prefHeight="25.0" prefWidth="600.0" text="Effort Logger Adder" textAlignment="CENTER">
@@ -73,7 +74,21 @@
                   <ComboBox fx:id="WhichBlankList" layoutX="332.0" layoutY="66.0" prefWidth="150.0" />
                </children>
             </AnchorPane>
-        </content>
+         </content>
       </Tab>
+   <Tab text="Password for Log Access">
+      <content>
+         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+            <children>
+               <Text fx:id="prompt3" layoutX="14.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3. Save the file as &quot;pw&quot; (the .txt extension is handled)" wrappingWidth="289.87030029296875" />
+               <TextField fx:id="NewPasswordTextField" layoutX="128.0" layoutY="122.0" promptText="Enter New Password" />
+               <Text fx:id="mainprompt" layoutX="14.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New File Password" wrappingWidth="102.13677978515625" />
+               <Button fx:id="SavePasswordButton" layoutX="538.0" layoutY="360.0" mnemonicParsing="false" onAction="#SavePasswordButton" text="Save" />
+               <Text fx:id="prompt1" layoutX="14.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1. Enter the new password for your log file. " wrappingWidth="551.1924438476562" />
+               <Text fx:id="prompt2" layoutX="14.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2. Click Save and save the file in the (C: drive directory)" wrappingWidth="310.13671875" />
+            </children>
+         </AnchorPane>
+      </content>
+   </Tab>
    </tabs>
 </TabPane>
