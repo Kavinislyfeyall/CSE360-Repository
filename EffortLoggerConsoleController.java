@@ -24,9 +24,6 @@ public class EffortLoggerConsoleController {
     private ComboBox<String> EffortChoiceBox;
 
     @FXML
-    private Label EffortLoggerConsoleTitle;
-
-    @FXML
     private Label EnterOtherDetailsText;
 
     @FXML
@@ -40,9 +37,6 @@ public class EffortLoggerConsoleController {
 
     @FXML
     private ComboBox<String> AdderList;
-
-    @FXML
-    private Label EffortLoggerAdderTitle;
 
     @FXML
     private Label CategoryTextBox;
@@ -124,6 +118,7 @@ public class EffortLoggerConsoleController {
 
     @FXML
     void StartActivity(ActionEvent event) {
+        ClockLabel.setText("Clock is running");
         ClockRectColor.setFill(Color.rgb(37, 255, 33));
         startTime = LocalTime.now();
         projectName = ProjectChoiceBox.getValue();
@@ -135,6 +130,7 @@ public class EffortLoggerConsoleController {
 
     @FXML
     void StopActivity(ActionEvent event) {
+        ClockLabel.setText("Clock is stopped");
         ClockRectColor.setFill(Color.rgb(255, 31, 31));
         if(Other.isEmpty())
         {
