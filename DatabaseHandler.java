@@ -26,11 +26,13 @@ public class DatabaseHandler
     public void Create(String password)
     {
         File file1 = new File(file);
+        //Check if the excel file already exists,  if it does just update the local one to the file
         if(file1.exists()){
             Update();
         }
         else
-        {                
+        {         
+            //otherwise create a new excel file with 3 sheets and a password connected to the users password
             workbook = new ExcelDocument(3);
             workbook.easy_getSheetAt(0).setSheetName("Project Data");
             workbook.easy_getSheetAt(1).setSheetName("List Information");
@@ -43,6 +45,7 @@ public class DatabaseHandler
             spreadsheetList = ((ExcelWorksheet)workbook.easy_getSheet("List Information")).easy_getExcelTable(); 
             encSpreadsheet = ((ExcelWorksheet)workbook.easy_getSheet("Encryption Validator")).easy_getExcelTable();
             closeSheet();
+            //
             initSheet();
         }
     } 
