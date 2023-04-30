@@ -8,6 +8,55 @@ import javafx.scene.shape.Rectangle;
 import java.util.ArrayList;
 import java.time.*;
 
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import java.util.ArrayList;
+import java.time.*;
+
+
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.*;
+
+import java.awt.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+import javafx.stage.FileChooser;
+
+
+import java.util.logging.Logger;
+import java.util.logging.Level;
+import javafx.scene.control.TextArea;
 
 public class EffortLoggerConsoleController {
 
