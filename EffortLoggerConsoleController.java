@@ -3,6 +3,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 public class EffortLoggerConsoleController {
 
@@ -11,6 +13,9 @@ public class EffortLoggerConsoleController {
 
     @FXML
     private Label ClockLabel;
+
+    @FXML
+    private Rectangle ClockRectColor;
 
     @FXML
     private ComboBox<String> EffortChoiceBox;
@@ -98,12 +103,12 @@ public class EffortLoggerConsoleController {
 
     @FXML
     void StartActivity(ActionEvent event) {
-
+        ClockRectColor.setFill(Color.rgb(37, 255, 33));
     }
 
     @FXML
     void StopActivity(ActionEvent event) {
-
+        ClockRectColor.setFill(Color.rgb(255, 31, 31));
     }
 
     @FXML
