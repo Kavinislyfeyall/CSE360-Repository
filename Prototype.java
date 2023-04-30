@@ -25,7 +25,7 @@ public class Prototype extends Application{
         if(file.length() == 0){
             try {
                 //Create a scene that'll be shown using the fxml file
-                root = FXMLLoader.load(getClass().getResource("EffortLoggerConsole.fxml"));
+                root = FXMLLoader.load(getClass().getResource("PrototypeSignUp.fxml"));
                 Scene scene = new Scene(root);
                 //primaryStage.setTitle("Hello World!");
                 primaryStage.setScene(scene);
