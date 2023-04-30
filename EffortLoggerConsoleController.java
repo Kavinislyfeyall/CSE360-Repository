@@ -1,3 +1,44 @@
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.*;
+
+import java.awt.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+import javafx.stage.FileChooser;
+
+
+import java.util.logging.Logger;
+import java.util.logging.Level;
+import javafx.scene.control.TextArea;
+
+import EasyXLS.*;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -222,4 +263,77 @@ public class EffortLoggerConsoleController {
         }
         return true;
     }
+    
+    
+    //** TAB 3 STARTS HERE ****************************************************************************************
+
+    @FXML
+    private Button SavePasswordButton; // Save button
+
+    @FXML
+    private TextField NewPasswordTextField;
+
+    //Save contents of the text box into the file
+    // SavePasswordButton.setOnMouseClicked((new EventHandler<MouseEvent>(){
+
+    @FXML
+    public void SavePasswordButton(ActionEvent event){
+
+        //  l.setText("Password Set");
+
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        //SAve the text of the textfield input
+        String input = NewPasswordTextField.getText();
+
+        //File file;
+
+        Node source = (Node)  event.getSource();
+        Stage stage  = (Stage) source.getScene().getWindow();
+        File file = fileChooser.showSaveDialog(stage);
+        //stage.close();
+
+        if (file != null){
+            SaveFile(input, file); // insert the input and file
+        }
+
+
+
+    }
+
+    // }));
+
+
+
+    //Save contents of the text field and open the directory to save
+    @FXML
+    private void SaveFile(String content, File file){
+
+        try{
+            FileWriter fileWriter;
+
+            fileWriter = new FileWriter(file);
+            fileWriter.write(content);
+            fileWriter.close();
+
+        } catch(IOException ex){
+
+            Logger.getLogger(HelloApplication.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+    }
+
+    @FXML
+    private void initialize() {
+        EnterOtherDetailsText.setVisible(false);
+        EnterOtherDetailsTextBox.setVisible(false);
+
+    }
+
+
+    //Tab 3 ends HERE*********************************************************************************************
+    
 }
