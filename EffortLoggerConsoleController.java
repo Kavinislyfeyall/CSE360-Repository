@@ -9,25 +9,16 @@ import javafx.scene.shape.Rectangle;
 public class EffortLoggerConsoleController {
 
     @FXML
-    private ComboBox<String> CategoryChoiceBox;
-
-    @FXML
-    private Label ClockLabel;
-
-    @FXML
-    private Rectangle ClockRectColor;
-
-    @FXML
-    private ComboBox<String> EffortChoiceBox;
-
-    @FXML
-    private Label EffortLoggerConsoleTitle;
-
-    @FXML
-    private Label EnterOtherDetailsText;
+    private TextField namedTypeTextBox;
 
     @FXML
     private TextField EnterOtherDetailsTextBox;
+
+    @FXML
+    private ComboBox<String> CategoryChoiceBox;
+
+    @FXML
+    private ComboBox<String> EffortChoiceBox;
 
     @FXML
     private ComboBox<String> LifeCycleChoiceBox;
@@ -39,7 +30,7 @@ public class EffortLoggerConsoleController {
     private ComboBox<String> AdderList;
 
     @FXML
-    private Label EffortLoggerAdderTitle;
+    private ComboBox<String> WhichBlankList;
 
     @FXML
     private Label CategoryTextBox;
@@ -51,13 +42,16 @@ public class EffortLoggerConsoleController {
     private Label AddedText;
 
     @FXML
-    private ComboBox<String> WhichBlankList;
-
-    @FXML
     private Label WhichBlankText;
 
     @FXML
-    private TextField namedTypeTextBox;
+    private Label ClockLabel;
+
+    @FXML
+    private Label EnterOtherDetailsText;
+
+    @FXML
+    private Rectangle ClockRectColor;
 
     @FXML
     private void initialize() {
@@ -103,11 +97,13 @@ public class EffortLoggerConsoleController {
 
     @FXML
     void StartActivity(ActionEvent event) {
-        ClockRectColor.setFill(Color.rgb(37, 255, 33));
+        ClockLabel.setText("Clock is running");
+        ClockRectColor.setFill(Color.rgb(10, 215, 10));
     }
 
     @FXML
     void StopActivity(ActionEvent event) {
+        ClockLabel.setText("Clock is stopped");
         ClockRectColor.setFill(Color.rgb(255, 31, 31));
     }
 
