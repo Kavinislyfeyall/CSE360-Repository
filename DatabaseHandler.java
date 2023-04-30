@@ -21,8 +21,9 @@ public class DatabaseHandler
     private ExcelTable encSpreadsheet;
     private String file = "EffortLoggerDatabase.xlsx";
     private int columnCount; 
+    String pass = "";
     /*Create the spreadsheet and name the sheets, call initSheet to initialize the spreadsheet*/
-    public void Create()
+    public void Create(String password)
     {
         File file1 = new File(file);
         if(file1.exists()){
@@ -35,6 +36,8 @@ public class DatabaseHandler
             workbook.easy_getSheetAt(1).setSheetName("List Information");
             workbook.easy_getSheetAt(2).setSheetName("Encryption Validator");
             workbook.easy_getSheetAt(2).setSheetProtected(true);
+            workbook.easy_getOptions().setPasswordToOpen(password);
+            pass = password;
             workbook.easy_WriteXLSXFile("EffortLoggerDatabase.xlsx");
             spreadsheet = ((ExcelWorksheet)workbook.easy_getSheet("Project Data")).easy_getExcelTable();    
             spreadsheetList = ((ExcelWorksheet)workbook.easy_getSheet("List Information")).easy_getExcelTable(); 
@@ -112,6 +115,7 @@ public class DatabaseHandler
         try {            
             FileInputStream inputStream = new FileInputStream(new File(file));
             workbook = new ExcelDocument(0);
+            workbook.easy_getOptions().setPasswordToOpen(pass);
             workbook.easy_LoadXLSXFile(file);
             spreadsheet = ((ExcelWorksheet)workbook.easy_getSheet("Project Data")).easy_getExcelTable();
             spreadsheetList = ((ExcelWorksheet)workbook.easy_getSheet("List Information")).easy_getExcelTable();  

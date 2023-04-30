@@ -8,6 +8,9 @@ import javafx.scene.shape.Rectangle;
 import java.util.ArrayList;
 import java.time.*;
 import javafx.scene.control.Alert;
+import java.io.FileInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 
 public class EffortLoggerConsoleController {
@@ -72,6 +75,7 @@ public class EffortLoggerConsoleController {
     String effortCat;
     String Deliverable;
     String Other = "";
+    String pass = "";
     @FXML
     private void initialize() {
         EnterOtherDetailsText.setVisible(false);
@@ -90,8 +94,16 @@ public class EffortLoggerConsoleController {
         EffortChoiceBox.getItems().add("Deliverables");
         EffortChoiceBox.getItems().add("Interruptions");
         EffortChoiceBox.getItems().add("Defects");
-        EffortChoiceBox.getItems().add("Others");        
-        DBH.Create();
+        EffortChoiceBox.getItems().add("Others");    
+        String file = "UserData.txt";
+        try{
+        FileInputStream inputStream = new FileInputStream(new File(file));
+        }
+        catch(FileNotFoundException e)
+        {
+            
+        }
+        DBH.Create(pass);
         DBH.addListEffort("Plans");
         DBH.addListEffort("Deliverables");
         DBH.addListEffort("Interruptions");
