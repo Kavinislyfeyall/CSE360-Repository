@@ -45,7 +45,7 @@
                   <Button layoutX="51.0" layoutY="360.0" mnemonicParsing="false" onAction="#EncryptDataButton" text="Encrypt data" />
                   <Button layoutX="443.0" layoutY="360.0" mnemonicParsing="false" onAction="#DecryptDataButton" text="Decrypt data" />
                   <ComboBox fx:id="EffortChoiceBox" layoutX="56.0" layoutY="209.0" onAction="#ShowDeliverable" prefHeight="26.0" prefWidth="133.0" />
-                  <ComboBox fx:id="ProjectChoiceBox" layoutX="52.0" layoutY="157.0" prefHeight="26.0" prefWidth="195.0" />
+                  <ComboBox fx:id="ProjectChoiceBox" layoutX="52.0" layoutY="157.0" onAction="#ProjectChoiceBoxAct" prefHeight="26.0" prefWidth="195.0" />
                   <ComboBox fx:id="LifeCycleChoiceBox" layoutX="317.0" layoutY="157.0" prefHeight="26.0" prefWidth="214.0" />
                   <ComboBox fx:id="CategoryChoiceBox" layoutX="224.0" layoutY="209.0" prefHeight="26.0" prefWidth="306.0" />
                </children>
