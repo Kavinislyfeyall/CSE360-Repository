@@ -5,20 +5,32 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import java.util.ArrayList;
+import java.time.*;
+
 
 public class EffortLoggerConsoleController {
-
-    @FXML
-    private TextField namedTypeTextBox;
-
-    @FXML
-    private TextField EnterOtherDetailsTextBox;
 
     @FXML
     private ComboBox<String> CategoryChoiceBox;
 
     @FXML
+    private Label ClockLabel;
+
+    @FXML
+    private Rectangle ClockRectColor;
+
+    @FXML
     private ComboBox<String> EffortChoiceBox;
+
+    @FXML
+    private Label EffortLoggerConsoleTitle;
+
+    @FXML
+    private Label EnterOtherDetailsText;
+
+    @FXML
+    private TextField EnterOtherDetailsTextBox;
 
     @FXML
     private ComboBox<String> LifeCycleChoiceBox;
@@ -30,7 +42,7 @@ public class EffortLoggerConsoleController {
     private ComboBox<String> AdderList;
 
     @FXML
-    private ComboBox<String> WhichBlankList;
+    private Label EffortLoggerAdderTitle;
 
     @FXML
     private Label CategoryTextBox;
@@ -42,17 +54,20 @@ public class EffortLoggerConsoleController {
     private Label AddedText;
 
     @FXML
+    private ComboBox<String> WhichBlankList;
+
+    @FXML
     private Label WhichBlankText;
 
     @FXML
-    private Label ClockLabel;
-
-    @FXML
-    private Label EnterOtherDetailsText;
-
-    @FXML
-    private Rectangle ClockRectColor;
-
+    private TextField namedTypeTextBox;
+    DatabaseHandler DBH = new DatabaseHandler();
+    LocalTime startTime;
+    String projectName;
+    String LCStep;
+    String effortCat;
+    String Deliverable;
+    String Other;
     @FXML
     private void initialize() {
         EnterOtherDetailsText.setVisible(false);
@@ -70,6 +85,18 @@ public class EffortLoggerConsoleController {
         EffortChoiceBox.getItems().add("Interruptions");
         EffortChoiceBox.getItems().add("Defects");
         EffortChoiceBox.getItems().add("Others");
+        DBH.Create();
+        DBH.addListEffort("Plans");
+        DBH.addListEffort("Deliverables");
+        DBH.addListEffort("Interruptions");
+        DBH.addListEffort("Defects");
+        DBH.addListEffort("Others");
+        ArrayList<String> temp = DBH.findListProject();
+        for(String temp1 : temp)
+        {
+            ProjectChoiceBox.getItems().add(temp1);
+        }
+        
     }
 
     @FXML
@@ -97,14 +124,26 @@ public class EffortLoggerConsoleController {
 
     @FXML
     void StartActivity(ActionEvent event) {
-        ClockLabel.setText("Clock is running");
-        ClockRectColor.setFill(Color.rgb(10, 215, 10));
+        ClockRectColor.setFill(Color.rgb(37, 255, 33));
+        startTime = LocalTime.now();
+        projectName = ProjectChoiceBox.getValue();
+        LCStep = LifeCycleChoiceBox.getValue();
+        effortCat = EffortChoiceBox.getValue();
+        Deliverable = CategoryChoiceBox.getValue();
+        Other = EnterOtherDetailsTextBox.getText();
     }
 
     @FXML
     void StopActivity(ActionEvent event) {
-        ClockLabel.setText("Clock is stopped");
         ClockRectColor.setFill(Color.rgb(255, 31, 31));
+        if(Other.isEmpty())
+        {
+            DBH.addData(projectName, LCStep, effortCat, startTime, LocalTime.now(), Deliverable);
+        }
+        else
+        {
+            DBH.addData(projectName, LCStep, effortCat, startTime, LocalTime.now(), Deliverable, Other);  
+        }
     }
 
     @FXML
@@ -128,19 +167,52 @@ public class EffortLoggerConsoleController {
             CategoryTextBox.setVisible(true);
             EnterOtherDetailsText.setVisible(false);
             EnterOtherDetailsTextBox.setVisible(false);
+            CategoryChoiceBox.getItems().clear();
+            ArrayList<String> temp = DBH.findListPlan(EffortChoiceBox.getValue());
+            for(String temp1 : temp)
+            {
+                CategoryChoiceBox.getItems().add(temp1);
+            }
         }
     }
-
+    @FXML
+    void ProjectChoiceBoxAct(ActionEvent event)
+    {
+        LifeCycleChoiceBox.getItems().clear();
+        ArrayList<String> temp = DBH.findListLC(ProjectChoiceBox.getValue());
+        for(String temp1 : temp)
+        {
+            LifeCycleChoiceBox.getItems().add(temp1);
+        }
+    }
     @FXML
     void AddButton(ActionEvent event) {
         String namedType = namedTypeTextBox.getText();
         if(addType(namedType)){
             IncorrectAdd.setVisible(false);
             AddedText.setVisible(true);
+            if(AdderList.getValue().equals("Project"))
+            {
+                DBH.addListProject(namedType);
+                ProjectChoiceBox.getItems().clear();
+                ArrayList<String> temp = DBH.findListProject();
+                for(String temp1 : temp)
+                {
+                    ProjectChoiceBox.getItems().add(temp1);
+                }
+            }
+            if(AdderList.getValue().equals("Life Cycle Step"))
+            {
+                DBH.addListLC(WhichBlankList.getValue(),namedType);     
+            }
+            if(AdderList.getValue().equals("Deliverable"))
+            {
+                DBH.addListPlan(WhichBlankList.getValue(),namedType);                
+            }
         }else{
             AddedText.setVisible(false);
             IncorrectAdd.setVisible(true);
-        }
+        }       
     }
 
     boolean addType(String namedType){
@@ -154,6 +226,4 @@ public class EffortLoggerConsoleController {
         }
         return true;
     }
-
-
 }

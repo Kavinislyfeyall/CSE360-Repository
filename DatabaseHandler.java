@@ -52,28 +52,32 @@ public class DatabaseHandler
             spreadsheet.easy_getCell(rowCount,columnCount).setValue(temp.toString());   
             temp = "Number:";            
             spreadsheet.easy_getCell(rowCount+1,columnCount).setValue(temp.toString());
+            temp = "Project:";
+            spreadsheet.easy_getCell(rowCount+1,columnCount+1).setValue(temp.toString());
             temp = "Date:";
-            spreadsheet.easy_getCell(rowCount+1,columnCount+1).setValue(temp.toString()); 
-            temp = "Start:";
             spreadsheet.easy_getCell(rowCount+1,columnCount+2).setValue(temp.toString()); 
-            temp = "Stop:";
+            temp = "Start:";
             spreadsheet.easy_getCell(rowCount+1,columnCount+3).setValue(temp.toString()); 
-            temp = "Time:";
+            temp = "Stop:";
             spreadsheet.easy_getCell(rowCount+1,columnCount+4).setValue(temp.toString()); 
+            temp = "Time:";
+            spreadsheet.easy_getCell(rowCount+1,columnCount+5).setValue(temp.toString()); 
             temp = "Life Cycle Step:";
-            spreadsheet.easy_getCell(rowCount+1,columnCount+5).setValue(temp.toString());
-            temp = "Effort Category:";
             spreadsheet.easy_getCell(rowCount+1,columnCount+6).setValue(temp.toString());
-            temp = "Deliverable:";
+            temp = "Effort Category:";
             spreadsheet.easy_getCell(rowCount+1,columnCount+7).setValue(temp.toString());
-            temp = "Other:";
+            temp = "Deliverable:";
             spreadsheet.easy_getCell(rowCount+1,columnCount+8).setValue(temp.toString());
+            temp = "Other:";
+            spreadsheet.easy_getCell(rowCount+1,columnCount+9).setValue(temp.toString());
             spreadsheet.setColumnWidth(1,80);
             spreadsheet.setColumnWidth(2,80);
             spreadsheet.setColumnWidth(3,80);
+            spreadsheet.setColumnWidth(4,120);
             spreadsheet.setColumnWidth(5,120);
             spreadsheet.setColumnWidth(6,120);
             spreadsheet.setColumnWidth(7,120);
+            spreadsheet.setColumnWidth(8,120);
             spreadsheetList.easy_getCell(rowCount,columnCount).setFontSize(24);
             temp = "Effort Logger List:";
             spreadsheetList.easy_getCell(rowCount,columnCount).setValue(temp.toString()); 
@@ -120,14 +124,15 @@ public class DatabaseHandler
         columnCount = 0;
         int entryNumber = rowCount - 1;
         spreadsheet.easy_getCell(rowCount,columnCount).setValue(entryNumber + "");
-        spreadsheet.easy_getCell(rowCount,columnCount+1).setValue(LocalDate.now()+"");    
-        spreadsheet.easy_getCell(rowCount,columnCount+2).setValue(startTime.withNano(0).toString()); 
-        spreadsheet.easy_getCell(rowCount,columnCount+3).setValue(stopTime.withNano(0).toString()); 
-        spreadsheet.easy_getCell(rowCount,columnCount+4).setValue(Long.toString((Duration.between(startTime, stopTime).toMinutes()))); 
-        spreadsheet.easy_getCell(rowCount,columnCount+5).setValue(lifecycleStep); 
-        spreadsheet.easy_getCell(rowCount,columnCount+6).setValue(effortCategory); 
-        spreadsheet.easy_getCell(rowCount,columnCount+7).setValue(deliverable);
-        spreadsheet.easy_getCell(rowCount,columnCount+8).setValue(other);
+        spreadsheet.easy_getCell(rowCount,columnCount+1).setValue(projectType);
+        spreadsheet.easy_getCell(rowCount,columnCount+2).setValue(LocalDate.now()+"");    
+        spreadsheet.easy_getCell(rowCount,columnCount+3).setValue(startTime.withNano(0).toString()); 
+        spreadsheet.easy_getCell(rowCount,columnCount+4).setValue(stopTime.withNano(0).toString()); 
+        spreadsheet.easy_getCell(rowCount,columnCount+5).setValue(Long.toString((Duration.between(startTime, stopTime).toMinutes()))); 
+        spreadsheet.easy_getCell(rowCount,columnCount+6).setValue(lifecycleStep); 
+        spreadsheet.easy_getCell(rowCount,columnCount+7).setValue(effortCategory); 
+        spreadsheet.easy_getCell(rowCount,columnCount+8).setValue(deliverable);
+        spreadsheet.easy_getCell(rowCount,columnCount+9).setValue(other);
         closeSheet();
     }
     public void addData(String projectType, String lifecycleStep, String effortCategory, LocalTime startTime, LocalTime stopTime, String deliverable)
@@ -137,13 +142,14 @@ public class DatabaseHandler
         columnCount = 0;
         int entryNumber = rowCount - 1;
         spreadsheet.easy_getCell(rowCount,columnCount).setValue(entryNumber + "");
-        spreadsheet.easy_getCell(rowCount,columnCount+1).setValue(LocalDate.now()+"");    
-        spreadsheet.easy_getCell(rowCount,columnCount+2).setValue(startTime.withNano(0).toString()); 
-        spreadsheet.easy_getCell(rowCount,columnCount+3).setValue(stopTime.withNano(0).toString()); 
-        spreadsheet.easy_getCell(rowCount,columnCount+4).setValue(Long.toString((Duration.between(startTime, stopTime).toMinutes()))); 
-        spreadsheet.easy_getCell(rowCount,columnCount+5).setValue(lifecycleStep); 
-        spreadsheet.easy_getCell(rowCount,columnCount+6).setValue(effortCategory); 
-        spreadsheet.easy_getCell(rowCount,columnCount+7).setValue(deliverable);        
+        spreadsheet.easy_getCell(rowCount,columnCount+1).setValue(projectType);
+        spreadsheet.easy_getCell(rowCount,columnCount+2).setValue(LocalDate.now()+"");    
+        spreadsheet.easy_getCell(rowCount,columnCount+3).setValue(startTime.withNano(0).toString()); 
+        spreadsheet.easy_getCell(rowCount,columnCount+4).setValue(stopTime.withNano(0).toString()); 
+        spreadsheet.easy_getCell(rowCount,columnCount+5).setValue(Long.toString((Duration.between(startTime, stopTime).toMinutes()))); 
+        spreadsheet.easy_getCell(rowCount,columnCount+6).setValue(lifecycleStep); 
+        spreadsheet.easy_getCell(rowCount,columnCount+7).setValue(effortCategory); 
+        spreadsheet.easy_getCell(rowCount,columnCount+8).setValue(deliverable);        
         closeSheet();
     } 
     /*All findlist and addlist methods add and search entries for the the choiceboxes*/
@@ -344,7 +350,7 @@ public class DatabaseHandler
                      break; 
                   }
                 }
-                if(row.easy_getCell(1).getValue().isEmpty())
+                if(row.easy_getCell(4).getValue().isEmpty())
                     {
                         spreadsheetList.easy_getCell(j,4).setValue(plans + "");
                         spreadsheetList.easy_getCell(j,5).setValue(effort + "");
