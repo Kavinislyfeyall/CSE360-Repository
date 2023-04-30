@@ -3,14 +3,11 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import EasyXLS.*;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import java.time.LocalTime;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.util.ArrayList;
+
 /**
  * Initializes the excel sheet along with adding, removing, editting, and exporting data from the sheet
  *
@@ -22,7 +19,8 @@ public class DatabaseHandler
     private ExcelTable spreadsheet;
     private ExcelTable spreadsheetList;
     private String file = "EffortLoggerDatabase.xlsx";
-    private int columnCount;    
+    private int columnCount; 
+    /*Create the spreadsheet and name the sheets, call initSheet to initialize the spreadsheet*/
     public void Create()
     {
         File file1 = new File(file);
@@ -41,6 +39,7 @@ public class DatabaseHandler
             initSheet();
         }
     } 
+    /*Is called when the program first creates a spreadsheet to set certain values and cell widths*/
     public void initSheet()
     {
             Update();
@@ -82,15 +81,22 @@ public class DatabaseHandler
             spreadsheetList.easy_getCell(rowCount+1,columnCount).setValue(temp.toString()); 
             temp = "Life Cycle Steps:";
             spreadsheetList.easy_getCell(rowCount+1,columnCount+1).setValue(temp.toString()); 
-            temp = "Effort Categories:";
+            temp = "Corresponding Project:";
             spreadsheetList.easy_getCell(rowCount+1,columnCount+2).setValue(temp.toString()); 
-            temp = "Plan Categories:";
+            temp = "Effort Categories:";
             spreadsheetList.easy_getCell(rowCount+1,columnCount+3).setValue(temp.toString()); 
+            temp = "Plan Categories:";
+            spreadsheetList.easy_getCell(rowCount+1,columnCount+4).setValue(temp.toString()); 
+            temp = "Corresponding Effort:";
+            spreadsheetList.easy_getCell(rowCount+1,columnCount+5).setValue(temp.toString());
             spreadsheetList.setColumnWidth(1,120);
-            spreadsheetList.setColumnWidth(2,120);            
+            spreadsheetList.setColumnWidth(2,120);    
+            spreadsheetList.setColumnWidth(3,120); 
+            spreadsheetList.setColumnWidth(4,120); 
+            spreadsheetList.setColumnWidth(5,120);
             closeSheet();        
     }
-    /*Checks for an existing spreadsheet and pulls data from it*/
+    /*Checks for an existing spreadsheet and pulls the sheets from it*/
     public void Update()
     {
         try {            
@@ -140,54 +146,220 @@ public class DatabaseHandler
         spreadsheet.easy_getCell(rowCount,columnCount+7).setValue(deliverable);        
         closeSheet();
     } 
-    /*Add a new entry to the choiceboxes*/
+    /*All findlist and addlist methods add and search entries for the the choiceboxes*/
+    /*Add a project name to the database list*/
     public void addListProject(String projectType)
     {
         Update();
-        int rowCount = spreadsheetList.easy_getRowAt(0).Count()-2;                 
-        spreadsheet.easy_getCell(rowCount,columnCount).setValue(projectType + "");        
+        int i = 1;
+        ExcelRow row = spreadsheetList.easy_getRowAt(i); 
+        while(!row.easy_getCell(0).getValue().isEmpty())
+        {
+            i++;
+            try{
+            row = spreadsheetList.easy_getRowAt(i);
+        }
+        catch(IndexOutOfBoundsException e)
+        {                   
+            spreadsheetList.easy_getCell(i,0).setValue(projectType + "");    
+            break;
+        }
+        }                          
         closeSheet();
     }  
-    public void addListLC(String lifecycleStep)
+    /*Create a arraylist of the project names*/
+    public ArrayList<String> findListProject()
+    {
+       Update();
+        int i = 2;
+        ExcelRow row = spreadsheetList.easy_getRowAt(i); 
+        ArrayList<String> temp = new ArrayList<>();
+        while(!row.easy_getCell(0).getValue().isEmpty())
+        {
+            temp.add(row.easy_getCell(0).getValue());
+            i++;
+            try{
+            row = spreadsheetList.easy_getRowAt(i);
+        }
+        catch(IndexOutOfBoundsException e)
+        {                               
+            break;
+        }
+        }       
+       closeSheet();
+       return temp;
+    }
+    /*Add a LifeCycle Step with an associated project to the database*/
+    public void addListLC(String projectName, String lifecycleStep)
     {
         Update();
-        int rowCount = spreadsheetList.easy_getRowAt(0).Count()-2;                 
-        spreadsheet.easy_getCell(rowCount,columnCount).setValue(lifecycleStep + "");        
+        int i = 2;
+        int j = 2;
+        ExcelRow row = spreadsheetList.easy_getRowAt(i); 
+        while(!row.easy_getCell(0).getValue().isEmpty())
+        {                                    
+            if(projectName.equals(row.easy_getCell(0).getValue()))
+            {
+                row = spreadsheetList.easy_getRowAt(j);
+                while(!row.easy_getCell(1).getValue().isEmpty())
+                { 
+                  j++;  
+                  try
+                  {
+                    row = spreadsheetList.easy_getRowAt(j);  
+                  }
+                  catch(IndexOutOfBoundsException e)
+                  {
+                     break; 
+                  }
+                }
+                if(row.easy_getCell(1).getValue().isEmpty())
+                    {
+                        spreadsheetList.easy_getCell(j,1).setValue(lifecycleStep + "");
+                        spreadsheetList.easy_getCell(j,2).setValue(projectName + "");
+                    }
+                break;                
+            }
+            i++; 
+            row = spreadsheetList.easy_getRowAt(i);
+        }              
         closeSheet();
     }   
-    public void addListEffort(String projectType, String lifecycleStep, String effortCategory, LocalTime startTime, LocalTime stopTime, String deliverable)
+    /*Create an arraylist of all of the life cycle steps that are associated with a project*/
+    public ArrayList<String> findListLC(String projectName)
     {
         Update();
-        int rowCount = spreadsheet.RowCount();  
-        columnCount = 0;
-        int entryNumber = rowCount - 1;
-        spreadsheet.easy_getCell(rowCount,columnCount).setValue(entryNumber + "");
-        spreadsheet.easy_getCell(rowCount,columnCount+1).setValue(LocalDate.now()+"");    
-        spreadsheet.easy_getCell(rowCount,columnCount+2).setValue(startTime.withNano(0).toString()); 
-        spreadsheet.easy_getCell(rowCount,columnCount+3).setValue(stopTime.withNano(0).toString()); 
-        spreadsheet.easy_getCell(rowCount,columnCount+4).setValue(Long.toString((Duration.between(startTime, stopTime).toMinutes()))); 
-        spreadsheet.easy_getCell(rowCount,columnCount+5).setValue(lifecycleStep); 
-        spreadsheet.easy_getCell(rowCount,columnCount+6).setValue(effortCategory); 
-        spreadsheet.easy_getCell(rowCount,columnCount+7).setValue(deliverable);        
-        closeSheet();
-    }   
-    public void addListPlan(String projectType, String lifecycleStep, String effortCategory, LocalTime startTime, LocalTime stopTime, String deliverable)
+        int i = 2;
+        ExcelRow row = spreadsheetList.easy_getRowAt(i); 
+        ArrayList<String> temp = new ArrayList<>();
+        while(!row.easy_getCell(1).getValue().isEmpty())
+        {
+            if(row.easy_getCell(2).getValue().equals(projectName))
+            {
+               temp.add(row.easy_getCell(1).getValue()); 
+            }             
+            i++;
+            try{
+                row = spreadsheetList.easy_getRowAt(i);
+            }
+            catch(IndexOutOfBoundsException e)
+            {                               
+                break;
+            }
+        }       
+       closeSheet();
+       return temp;
+    }
+    /*Adds an effort category to the database*/
+    public void addListEffort(String effortCategory)
     {
         Update();
-        int rowCount = spreadsheet.RowCount();  
-        columnCount = 0;
-        int entryNumber = rowCount - 1;
-        spreadsheet.easy_getCell(rowCount,columnCount).setValue(entryNumber + "");
-        spreadsheet.easy_getCell(rowCount,columnCount+1).setValue(LocalDate.now()+"");    
-        spreadsheet.easy_getCell(rowCount,columnCount+2).setValue(startTime.withNano(0).toString()); 
-        spreadsheet.easy_getCell(rowCount,columnCount+3).setValue(stopTime.withNano(0).toString()); 
-        spreadsheet.easy_getCell(rowCount,columnCount+4).setValue(Long.toString((Duration.between(startTime, stopTime).toMinutes()))); 
-        spreadsheet.easy_getCell(rowCount,columnCount+5).setValue(lifecycleStep); 
-        spreadsheet.easy_getCell(rowCount,columnCount+6).setValue(effortCategory); 
-        spreadsheet.easy_getCell(rowCount,columnCount+7).setValue(deliverable);        
+        int i = 1;        
+        ExcelRow row = spreadsheetList.easy_getRowAt(i); 
+        while(!row.easy_getCell(0).getValue().isEmpty())
+        {                                                                        
+            if(row.easy_getCell(3).getValue().isEmpty())
+            {
+                    spreadsheetList.easy_getCell(i,3).setValue(effortCategory + "");
+                    break; 
+            }                                           
+            i++; 
+            try
+                  {
+                    row = spreadsheetList.easy_getRowAt(i);  
+                  }
+                  catch(IndexOutOfBoundsException e)
+                  {
+                    spreadsheetList.easy_getCell(i,3).setValue(effortCategory + "");
+                     break; 
+                  }
+        }              
+        closeSheet();
+    }  
+    /*Create an arraylist of the effort categories*/
+    public ArrayList<String> findListEffort()
+    {
+        Update();
+        int i = 2;
+        ExcelRow row = spreadsheetList.easy_getRowAt(i); 
+        ArrayList<String> temp = new ArrayList<>();
+        while(!row.easy_getCell(3).getValue().isEmpty())
+        {
+            temp.add(row.easy_getCell(3).getValue());
+            i++;
+            try{
+            row = spreadsheetList.easy_getRowAt(i);
+        }
+        catch(IndexOutOfBoundsException e)
+        {                               
+            break;
+        }
+        }       
+       closeSheet();
+       return temp;
+    }
+    /*Add a plan with an associated effort category to the database*/
+    public void addListPlan(String effort, String plans)
+    {
+        Update();
+        int i = 2;
+        int j = 2;
+        ExcelRow row = spreadsheetList.easy_getRowAt(i); 
+        while(!row.easy_getCell(3).getValue().isEmpty())
+        {                                    
+            if(effort.equals(row.easy_getCell(3).getValue()))
+            {
+                row = spreadsheetList.easy_getRowAt(j);
+                while(!row.easy_getCell(4).getValue().isEmpty())
+                { 
+                  j++;  
+                  try
+                  {
+                    row = spreadsheetList.easy_getRowAt(j);  
+                  }
+                  catch(IndexOutOfBoundsException e)
+                  {
+                     break; 
+                  }
+                }
+                if(row.easy_getCell(1).getValue().isEmpty())
+                    {
+                        spreadsheetList.easy_getCell(j,4).setValue(plans + "");
+                        spreadsheetList.easy_getCell(j,5).setValue(effort + "");
+                    }
+                break;                
+            }
+            i++; 
+            row = spreadsheetList.easy_getRowAt(i);
+        }              
         closeSheet();
     }   
-    /*Removes items from a spreadsheet*/
+    /*Create an array list of plan steps associated with an effort category*/
+    public ArrayList<String> findListPlan(String effort)
+    {
+        Update();
+        int i = 2;
+        ExcelRow row = spreadsheetList.easy_getRowAt(i); 
+        ArrayList<String> temp = new ArrayList<>();
+        while(!row.easy_getCell(4).getValue().isEmpty())
+        {
+            if(row.easy_getCell(5).getValue().equals(effort))
+            {
+               temp.add(row.easy_getCell(4).getValue()); 
+            }             
+            i++;
+            try{
+                row = spreadsheetList.easy_getRowAt(i);
+            }
+            catch(IndexOutOfBoundsException e)
+            {                               
+                break;
+            }
+        }       
+       closeSheet();
+       return temp;
+    }
+    /*Removes an index from the database*/
     public void Remove(String index)
     {
         Update();
@@ -196,8 +368,7 @@ public class DatabaseHandler
         for (int i = 2; i < rowCount; i++) {
             ExcelRow row = spreadsheet.easy_getRowAt(i);            
             if(row.easy_getCell(0).getValue().equals(index))
-            {
-                System.out.println("Remove " + row.easy_getCell(0).getValue());
+            {                
                 spreadsheet.easy_removeRow(i);
                 rowCount--;                
                 for(int j = i; j < rowCount; j++)
@@ -226,7 +397,7 @@ public class DatabaseHandler
         }
     }
 
-    public void editSheet(String Project, String Step, String effortCategory, String Deliverable)
+    /* public void editSheet(String Project, String Step, String effortCategory, String Deliverable)
     {
         int rowCount = spreadsheet.RowCount();
         int index = findindexSheet(Project, Step, effortCategory, Deliverable);
@@ -234,8 +405,8 @@ public class DatabaseHandler
         {
             
         }
-    }   
-    
+    } */
+    /*Prints all of the data in the spreadsheet to stdout*/
     public void printSheet()
     {
         Update();    
@@ -251,6 +422,7 @@ public class DatabaseHandler
         }
         closeSheet();    
     }
+    /*Returns a string with all of the information related to an index*/
     public String printindexSheet(int index)
     {
        Update();    
@@ -270,6 +442,7 @@ public class DatabaseHandler
             }
         return "";
     }
+    /*Finds the index of data when given information about it*/
     public int findindexSheet(String Project, String Step, String effortCategory, String Deliverable)
     {
        Update();    
