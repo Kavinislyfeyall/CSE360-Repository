@@ -36,7 +36,7 @@
                   <Label fx:id="EnterOtherDetailsText" layoutX="51.0" layoutY="241.0" prefHeight="17.0" prefWidth="491.0" text="Enter Other details here:" />
                   <TextField fx:id="EnterOtherDetailsTextBox" layoutX="51.0" layoutY="260.0" prefHeight="26.0" prefWidth="491.0" />
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="26.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" width="600.0" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1f1f" height="26.0" layoutX="28.0" layoutY="34.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="537.0" />
+                  <Rectangle fx:id="ClockRectColor" arcHeight="5.0" arcWidth="5.0" fill="#ff1f1f" height="26.0" layoutX="28.0" layoutY="34.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="537.0" />
                   <Label fx:id="ClockLabel" alignment="CENTER" layoutX="33.0" layoutY="36.0" prefHeight="23.0" prefWidth="527.0" text="Clock is stopped" textFill="WHITE">
                      <font>
                         <Font size="18.0" />
