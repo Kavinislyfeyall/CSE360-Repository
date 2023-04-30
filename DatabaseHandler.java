@@ -424,11 +424,11 @@ public class DatabaseHandler
             row.easy_getCell(1).setValue(cryption.encryptData(row.easy_getCell(1).getValue(), "eecc"));
             row.easy_getCell(2).setValue(cryption.encryptData(row.easy_getCell(2).getValue(), "eecc"));
             row.easy_getCell(3).setValue(cryption.encryptData(row.easy_getCell(3).getValue(), "eecc"));
-            row.easy_getCell(4).setValue(cryption.encryptData(row.easy_getCell(0).getValue(), "eecc"));
-            row.easy_getCell(5).setValue(cryption.encryptData(row.easy_getCell(0).getValue(), "eecc"));
-            row.easy_getCell(6).setValue(cryption.encryptData(row.easy_getCell(0).getValue(), "eecc"));
-            row.easy_getCell(7).setValue(cryption.encryptData(row.easy_getCell(0).getValue(), "eecc"));
-            row.easy_getCell(8).setValue(cryption.encryptData(row.easy_getCell(0).getValue(), "eecc"));
+            row.easy_getCell(4).setValue(cryption.encryptData(row.easy_getCell(4).getValue(), "eecc"));
+            row.easy_getCell(5).setValue(cryption.encryptData(row.easy_getCell(5).getValue(), "eecc"));
+            row.easy_getCell(6).setValue(cryption.encryptData(row.easy_getCell(6).getValue(), "eecc"));
+            row.easy_getCell(7).setValue(cryption.encryptData(row.easy_getCell(7).getValue(), "eecc"));
+            row.easy_getCell(8).setValue(cryption.encryptData(row.easy_getCell(8).getValue(), "eecc"));
         }
         closeSheet();    
     }
