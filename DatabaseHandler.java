@@ -238,7 +238,7 @@ public class DatabaseHandler
                      break; 
                   }                  
         }    
-        i = 1; 
+        i = 1;         
         row = spreadsheetList.easy_getRowAt(i); 
         while(!row.easy_getCell(1).getValue().isEmpty())
         {
@@ -246,6 +246,28 @@ public class DatabaseHandler
                 {
                     row.easy_getCell(1).setValue("");
                     row.easy_getCell(2).setValue("");
+                    int j=i;
+                    ExcelRow rowU = spreadsheetList.easy_getRowAt(j); 
+                    while((rowU.easy_getCell(1).getValue().isEmpty() || rowU.easy_getCell(1).getValue() == null) && !spreadsheetList.easy_getRowAt(j+1).easy_getCell(1).getValue().isEmpty())
+                    {
+                    String tempN = spreadsheetList.easy_getRowAt(j+1).easy_getCell(1).getValue();
+                    spreadsheetList.easy_getCell(j,1).setValue(tempN + "");
+                    spreadsheetList.easy_getRowAt(j+1).easy_getCell(1).setValue("");
+                    tempN = spreadsheetList.easy_getRowAt(j+1).easy_getCell(2).getValue();
+                    spreadsheetList.easy_getCell(j,2).setValue(tempN + "");
+                    spreadsheetList.easy_getRowAt(j+1).easy_getCell(2).setValue("");
+                    j++;
+                    try
+                      {
+                    rowU = spreadsheetList.easy_getRowAt(j);  
+                      }
+                      catch(IndexOutOfBoundsException e)
+                      { 
+                    
+                     break; 
+                      } 
+                    }
+                    i=0;
                 }
                 i++;
                 try
@@ -258,41 +280,7 @@ public class DatabaseHandler
                      break; 
                   } 
         }
-        i = 2;
-        try
-                  {
-                    row = spreadsheetList.easy_getRowAt(i);  
-                  }
-                  catch(IndexOutOfBoundsException e)
-                  {                   
-                  }
-         while((row.easy_getCell(1).getValue().isEmpty() || row.easy_getCell(1).getValue() == null))
-                {         
-                    if(projectType.equals(row.easy_getCell(2).getValue()))
-                    {
-                    if(!spreadsheetList.easy_getRowAt(i+1).easy_getCell(1).getValue().isEmpty() || spreadsheetList.easy_getRowAt(i+1).easy_getCell(1).getValue() != null)
-                    {
-                    String temp = spreadsheetList.easy_getRowAt(i+1).easy_getCell(0).getValue();
-                    spreadsheetList.easy_getCell(i,0).setValue(temp + "");
-                    spreadsheetList.easy_getRowAt(i+1).easy_getCell(0).setValue("");
-                    i++;
-                    try
-                  {
-                    row = spreadsheetList.easy_getRowAt(i);  
-                  }
-                  catch(IndexOutOfBoundsException e)
-                  {
-                    
-                     break; 
-                  } 
-                 }
-                 else
-                 {
-                   spreadsheetList.easy_getCell(i,0).setValue("");  
-                   break;
-                 }                 
-                }
-                }
+        
     }
     
     /*Create a arraylist of the project names*/
