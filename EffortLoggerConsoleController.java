@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import java.util.ArrayList;
 import java.time.*;
+import javafx.scene.control.Alert;
 
 
 public class EffortLoggerConsoleController {
@@ -130,10 +131,11 @@ public class EffortLoggerConsoleController {
 
     @FXML
     void StopActivity(ActionEvent event) {
-        ClockLabel.setText("Clock is stopped");
-        ClockRectColor.setFill(Color.rgb(255, 31, 31));
+        
        if(DBH.isEnc() == 0)
        {
+        ClockLabel.setText("Clock is stopped");
+        ClockRectColor.setFill(Color.rgb(255, 31, 31));
         if(Other.isEmpty())
         {
             DBH.addData(projectName, LCStep, effortCat, startTime, LocalTime.now(), Deliverable);
@@ -142,9 +144,22 @@ public class EffortLoggerConsoleController {
         {
             DBH.addData(projectName, LCStep, effortCat, startTime, LocalTime.now(), Deliverable, Other);  
         }
+        }
+        else
+        {
+            showAlert();
+        }
     }
-    }
+    
+    private void showAlert() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Encrypted Data");
+        alert.setHeaderText("Please decrypt the database to add new entries!");
+        alert.setContentText("You cannot add new data if the database is already encrypted.");
 
+        alert.showAndWait();
+    }
+    
     @FXML
     void EncryptDataButton(ActionEvent event) {
         DBH.encryptSheet();
