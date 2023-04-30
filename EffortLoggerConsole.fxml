@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -24,18 +24,14 @@
                      </font>
                   </Label>
                   <Label layoutX="14.0" layoutY="65.0" prefHeight="17.0" prefWidth="419.0" text="1. When you start a new activity, press the &quot;Start an Activity&quot; button." />
-                  <Button fx:id="StartActivity" layoutX="43.0" layoutY="82.0" mnemonicParsing="false" text="Start an Activity" />
+                  <Button layoutX="43.0" layoutY="82.0" mnemonicParsing="false" onAction="#StartActivity" text="Start an Activity" />
                   <Label layoutX="14.0" layoutY="114.0" prefHeight="17.0" prefWidth="491.0" text="2. Select the project, life cycle step, effort category, and deliverable from the following lists:" />
-                  <ChoiceBox fx:id="ProjectChoiceBox" layoutX="56.0" layoutY="157.0" prefHeight="17.0" prefWidth="194.0" />
                   <Label layoutX="56.0" layoutY="140.0" prefHeight="17.0" prefWidth="50.0" text="Project:" />
                   <Label layoutX="316.0" layoutY="140.0" prefHeight="17.0" prefWidth="102.0" text="Life Cycle Step:" />
-                  <ChoiceBox fx:id="LifeCycleChoiceBox1" layoutX="316.0" layoutY="157.0" prefHeight="26.0" prefWidth="213.0" />
                   <Label layoutX="56.0" layoutY="192.0" prefHeight="17.0" prefWidth="93.0" text="Effort Category:" />
-                  <ChoiceBox fx:id="EffortChoiceBox" layoutX="56.0" layoutY="209.0" prefHeight="26.0" prefWidth="133.0" />
-                  <Label layoutX="224.0" layoutY="192.0" prefHeight="17.0" prefWidth="93.0" />
-                  <ChoiceBox fx:id="CategoryChoiceBox" layoutX="224.0" layoutY="209.0" prefHeight="26.0" prefWidth="305.0" />
+                  <Label fx:id="CategoryTextBox" layoutX="224.0" layoutY="192.0" prefHeight="17.0" prefWidth="93.0" />
                   <Label layoutX="14.0" layoutY="290.0" prefHeight="17.0" prefWidth="491.0" text="3. Press the &quot;Stop this Activity&quot; to generate an effort log entry using the attributes above." />
-                  <Button fx:id="StopActivity" layoutX="40.0" layoutY="307.0" mnemonicParsing="false" text="Stop this Activity" />
+                  <Button layoutX="40.0" layoutY="307.0" mnemonicParsing="false" onAction="#StopActivity" text="Stop this Activity" />
                   <Label layoutX="14.0" layoutY="339.0" prefHeight="17.0" prefWidth="541.0" text="4. Unless you are done for the day, it is best to perform steps 1 and 2 above before resuming work." />
                   <Label fx:id="EnterOtherDetailsText" layoutX="51.0" layoutY="241.0" prefHeight="17.0" prefWidth="491.0" text="Enter Other details here:" />
                   <TextField fx:id="EnterOtherDetailsTextBox" layoutX="51.0" layoutY="260.0" prefHeight="26.0" prefWidth="491.0" />
@@ -46,15 +42,37 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Button fx:id="EncryptDataButton" layoutX="51.0" layoutY="360.0" mnemonicParsing="false" text="Encrypt data" />
-                  <Button fx:id="DecryptDataButton" layoutX="443.0" layoutY="360.0" mnemonicParsing="false" text="Decrypt data" />
+                  <Button layoutX="51.0" layoutY="360.0" mnemonicParsing="false" onAction="#EncryptDataButton" text="Encrypt data" />
+                  <Button layoutX="443.0" layoutY="360.0" mnemonicParsing="false" onAction="#DecryptDataButton" text="Decrypt data" />
+                  <ComboBox fx:id="EffortChoiceBox" layoutX="56.0" layoutY="209.0" onAction="#ShowDeliverable" prefHeight="26.0" prefWidth="133.0" />
+                  <ComboBox fx:id="ProjectChoiceBox" layoutX="52.0" layoutY="157.0" prefHeight="26.0" prefWidth="195.0" />
+                  <ComboBox fx:id="LifeCycleChoiceBox" layoutX="317.0" layoutY="157.0" prefHeight="26.0" prefWidth="214.0" />
+                  <ComboBox fx:id="CategoryChoiceBox" layoutX="224.0" layoutY="209.0" prefHeight="26.0" prefWidth="306.0" />
                </children>
             </Pane>
          </content>
       </Tab>
-      <Tab text="Effort Logger">
+      <Tab text="Effort Logger Adder">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="26.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" width="600.0" />
+                  <Label fx:id="EffortLoggerAdderTitle" alignment="CENTER" layoutY="1.0" prefHeight="25.0" prefWidth="600.0" text="Effort Logger Adder" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="39.0" prefHeight="17.0" prefWidth="491.0" text="1. Select project, life cycle step, or deliverable to add" />
+                  <TextField fx:id="namedTypeTextBox" layoutX="17.0" layoutY="126.0" prefHeight="26.0" prefWidth="468.0" />
+                  <Label fx:id="WhichBlankText" layoutX="332.0" layoutY="39.0" prefHeight="17.0" prefWidth="250.0" text="Which project" />
+                  <Label layoutX="14.0" layoutY="101.0" prefHeight="17.0" prefWidth="491.0" text="2. What is it called" />
+                  <Button layoutX="22.0" layoutY="174.0" mnemonicParsing="false" onAction="#AddButton" text="Add it" />
+                  <Label fx:id="IncorrectAdd" layoutX="14.0" layoutY="208.0" prefHeight="17.0" prefWidth="231.0" text="Missing Information" textFill="#ae0000" />
+                  <Label fx:id="AddedText" layoutX="14.0" layoutY="208.0" prefHeight="17.0" prefWidth="231.0" text="Added" />
+                  <ComboBox fx:id="AdderList" layoutX="17.0" layoutY="66.0" onAction="#AdderSelected" prefWidth="150.0" />
+                  <ComboBox fx:id="WhichBlankList" layoutX="332.0" layoutY="66.0" prefWidth="150.0" />
+               </children>
+            </AnchorPane>
         </content>
       </Tab>
    </tabs>
