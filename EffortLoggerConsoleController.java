@@ -326,13 +326,14 @@ public class EffortLoggerConsoleController {
 
     }
 
+    /*
     @FXML
     private void initialize() {
         EnterOtherDetailsText.setVisible(false);
         EnterOtherDetailsTextBox.setVisible(false);
 
     }
-
+*/
 
     //Tab 3 ends HERE*********************************************************************************************
     
