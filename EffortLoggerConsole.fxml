@@ -18,7 +18,7 @@
          <content>
             <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
                <children>
-                  <Label fx:id="EffortLoggerConsoleTitle" alignment="CENTER" layoutX="-1.0" prefHeight="25.0" prefWidth="600.0" text="Effort Logger Console" textAlignment="CENTER">
+                  <Label alignment="CENTER" layoutX="-1.0" prefHeight="25.0" prefWidth="600.0" text="Effort Logger Console" textAlignment="CENTER">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -39,7 +39,7 @@
                   <Rectangle fx:id="ClockRectColor" arcHeight="5.0" arcWidth="5.0" fill="#ff1f1f" height="26.0" layoutX="28.0" layoutY="34.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="537.0" />
                   <Label fx:id="ClockLabel" alignment="CENTER" layoutX="33.0" layoutY="36.0" prefHeight="23.0" prefWidth="527.0" text="Clock is stopped" textFill="WHITE">
                      <font>
-                        <Font size="18.0" />
+                        <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
                   <Button layoutX="51.0" layoutY="360.0" mnemonicParsing="false" onAction="#EncryptDataButton" text="Encrypt data" />
@@ -57,7 +57,7 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="26.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" width="600.0" />
-                  <Label fx:id="EffortLoggerAdderTitle" alignment="CENTER" layoutY="1.0" prefHeight="25.0" prefWidth="600.0" text="Effort Logger Adder" textAlignment="CENTER">
+                  <Label alignment="CENTER" layoutY="1.0" prefHeight="25.0" prefWidth="600.0" text="Effort Logger Adder" textAlignment="CENTER">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
