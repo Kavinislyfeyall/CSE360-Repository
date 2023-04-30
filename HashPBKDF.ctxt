@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=HashPBKDF
+comment1.params=Input\ salt\ Que1\ Que2\ Que3
+comment1.target=void\ hashDataWrite(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
+comment2.params=Input\ salt
+comment2.target=boolean\ hashDataRead(java.lang.String,\ java.lang.String)
+comment3.params=bytes
+comment3.target=java.lang.String\ bytesToHex(byte[])
+comment4.params=password\ salt\ iterations\ keyLength
+comment4.target=byte[]\ hashPassword(char[],\ byte[],\ int,\ int)
+numComments=5

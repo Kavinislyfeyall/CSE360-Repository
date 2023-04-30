@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=PrototypeLoginController
+comment1.params=
+comment1.target=void\ initialize()
+comment2.params=event
+comment2.target=void\ LoginClick(javafx.event.ActionEvent)
+numComments=3

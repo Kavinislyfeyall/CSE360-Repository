@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.target=EffortLoggerConsoleController
+comment1.params=
+comment1.target=void\ initialize()
+comment10.params=namedType
+comment10.target=boolean\ addType(java.lang.String)
+comment2.params=event
+comment2.target=void\ AdderSelected(javafx.event.ActionEvent)
+comment3.params=event
+comment3.target=void\ StartActivity(javafx.event.ActionEvent)
+comment4.params=event
+comment4.target=void\ StopActivity(javafx.event.ActionEvent)
+comment5.params=event
+comment5.target=void\ EncryptDataButton(javafx.event.ActionEvent)
+comment6.params=event
+comment6.target=void\ DecryptDataButton(javafx.event.ActionEvent)
+comment7.params=event
+comment7.target=void\ ShowDeliverable(javafx.event.ActionEvent)
+comment8.params=event
+comment8.target=void\ ProjectChoiceBoxAct(javafx.event.ActionEvent)
+comment9.params=event
+comment9.target=void\ AddButton(javafx.event.ActionEvent)
+numComments=11

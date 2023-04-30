@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=HelloApplication
+comment1.params=stage
+comment1.target=void\ start(javafx.stage.Stage)
+comment2.params=args
+comment2.target=void\ main(java.lang.String[])
+comment3.params=content\ file
+comment3.target=void\ SaveFile(java.lang.String,\ java.io.File)
+numComments=4

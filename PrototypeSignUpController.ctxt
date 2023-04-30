@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=PrototypeSignUpController
+comment1.params=
+comment1.target=void\ initialize()
+comment2.params=event
+comment2.target=void\ SignUpClick(javafx.event.ActionEvent)
+comment3.params=Ans1\ Ans2\ Ans3\ Que1\ Que2\ Que3
+comment3.target=boolean\ ansqueEmpty(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
+comment4.params=password
+comment4.target=boolean\ goodPassword(java.lang.String)
+numComments=5

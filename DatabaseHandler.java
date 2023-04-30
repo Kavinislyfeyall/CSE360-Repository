@@ -18,6 +18,7 @@ public class DatabaseHandler
     private ExcelDocument workbook;
     private ExcelTable spreadsheet;
     private ExcelTable spreadsheetList;
+    private ExcelTable encSpreadsheet;
     private String file = "EffortLoggerDatabase.xlsx";
     private int columnCount; 
     /*Create the spreadsheet and name the sheets, call initSheet to initialize the spreadsheet*/
@@ -29,12 +30,15 @@ public class DatabaseHandler
         }
         else
         {                
-            workbook = new ExcelDocument(2);
+            workbook = new ExcelDocument(3);
             workbook.easy_getSheetAt(0).setSheetName("Project Data");
             workbook.easy_getSheetAt(1).setSheetName("List Information");
+            workbook.easy_getSheetAt(2).setSheetName("Encryption Validator");
+            workbook.easy_getSheetAt(2).setSheetProtected(true);
             workbook.easy_WriteXLSXFile("EffortLoggerDatabase.xlsx");
             spreadsheet = ((ExcelWorksheet)workbook.easy_getSheet("Project Data")).easy_getExcelTable();    
             spreadsheetList = ((ExcelWorksheet)workbook.easy_getSheet("List Information")).easy_getExcelTable(); 
+            encSpreadsheet = ((ExcelWorksheet)workbook.easy_getSheet("Encryption Validator")).easy_getExcelTable();
             closeSheet();
             initSheet();
         }
@@ -45,6 +49,8 @@ public class DatabaseHandler
             Update();
             int rowCount = spreadsheet.RowCount();             
             columnCount = 0;
+            
+            encSpreadsheet.easy_getCell(0,0).setValue("0");
            
            
             spreadsheet.easy_getCell(rowCount,columnCount).setFontSize(24);
@@ -108,7 +114,8 @@ public class DatabaseHandler
             workbook = new ExcelDocument(0);
             workbook.easy_LoadXLSXFile(file);
             spreadsheet = ((ExcelWorksheet)workbook.easy_getSheet("Project Data")).easy_getExcelTable();
-            spreadsheetList = ((ExcelWorksheet)workbook.easy_getSheet("List Information")).easy_getExcelTable();       
+            spreadsheetList = ((ExcelWorksheet)workbook.easy_getSheet("List Information")).easy_getExcelTable();  
+            encSpreadsheet = ((ExcelWorksheet)workbook.easy_getSheet("Encryption Validator")).easy_getExcelTable();
             inputStream.close();     
         }
         catch (IOException e) {
@@ -413,6 +420,8 @@ public class DatabaseHandler
     public void encryptSheet()
     {
         Update();   
+        if(encSpreadsheet.easy_getCell(0,0).getValue().equals("0"))
+        {
         Encryption cryption = new Encryption();
         //sets all of the values of the excel sheet to their encrypted values
         ExcelRow row;
@@ -430,11 +439,15 @@ public class DatabaseHandler
             row.easy_getCell(7).setValue(cryption.encryptData(row.easy_getCell(7).getValue(), "eecc"));
             row.easy_getCell(8).setValue(cryption.encryptData(row.easy_getCell(8).getValue(), "eecc"));
         }
+    }
+        encSpreadsheet.easy_getCell(0,0).setValue("1");
         closeSheet();    
     }
     public void decryptSheet()
     {
         Update();    
+        if(encSpreadsheet.easy_getCell(0,0).getValue().equals("1"))
+        {
         Encryption cryption = new Encryption();
         //sets all of the values of the excel sheet to their decrypted value
         ExcelRow row;
@@ -452,6 +465,8 @@ public class DatabaseHandler
             row.easy_getCell(7).setValue(cryption.decryptData(row.easy_getCell(7).getValue(), "eecc"));
             row.easy_getCell(8).setValue(cryption.decryptData(row.easy_getCell(8).getValue(), "eecc"));
         }
+    }
+        encSpreadsheet.easy_getCell(0,0).setValue("0");
         closeSheet(); 
     }
     /*Writes to and then closes the spreadsheet*/
@@ -530,5 +545,16 @@ public class DatabaseHandler
         }       
         closeSheet();  
         return 0;                        
+    }
+    public int isEnc()
+    {
+        Update();
+        if(encSpreadsheet.easy_getCell(0,0).getValue().equals("1"))
+        {
+            closeSheet();
+            return 1;
+        }
+        closeSheet();
+        return 0;
     }
 }

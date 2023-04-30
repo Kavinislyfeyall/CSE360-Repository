@@ -61,7 +61,7 @@ public class EffortLoggerConsoleController {
     String LCStep;
     String effortCat;
     String Deliverable;
-    String Other;
+    String Other = "";
     @FXML
     private void initialize() {
         EnterOtherDetailsText.setVisible(false);
@@ -132,6 +132,8 @@ public class EffortLoggerConsoleController {
     void StopActivity(ActionEvent event) {
         ClockLabel.setText("Clock is stopped");
         ClockRectColor.setFill(Color.rgb(255, 31, 31));
+       if(DBH.isEnc() == 0)
+       {
         if(Other.isEmpty())
         {
             DBH.addData(projectName, LCStep, effortCat, startTime, LocalTime.now(), Deliverable);
@@ -141,10 +143,12 @@ public class EffortLoggerConsoleController {
             DBH.addData(projectName, LCStep, effortCat, startTime, LocalTime.now(), Deliverable, Other);  
         }
     }
+    }
 
     @FXML
     void EncryptDataButton(ActionEvent event) {
         DBH.encryptSheet();
+        
     }
     
     @FXML
