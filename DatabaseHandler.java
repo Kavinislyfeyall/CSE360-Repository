@@ -410,7 +410,50 @@ public class DatabaseHandler
         
         closeSheet();
     }
-
+    public void encryptSheet()
+    {
+        Update();   
+        Encryption cryption = new Encryption();
+        //sets all of the values of the excel sheet to their encrypted values
+        ExcelRow row;
+        int rowCount = spreadsheet.RowCount();       
+        for(int i = 2; i < rowCount;i++)
+        {
+            row = spreadsheet.easy_getRowAt(i);
+            row.easy_getCell(0).setValue(cryption.encryptData(row.easy_getCell(0).getValue(), "eecc"));
+            row.easy_getCell(1).setValue(cryption.encryptData(row.easy_getCell(1).getValue(), "eecc"));
+            row.easy_getCell(2).setValue(cryption.encryptData(row.easy_getCell(2).getValue(), "eecc"));
+            row.easy_getCell(3).setValue(cryption.encryptData(row.easy_getCell(3).getValue(), "eecc"));
+            row.easy_getCell(4).setValue(cryption.encryptData(row.easy_getCell(0).getValue(), "eecc"));
+            row.easy_getCell(5).setValue(cryption.encryptData(row.easy_getCell(0).getValue(), "eecc"));
+            row.easy_getCell(6).setValue(cryption.encryptData(row.easy_getCell(0).getValue(), "eecc"));
+            row.easy_getCell(7).setValue(cryption.encryptData(row.easy_getCell(0).getValue(), "eecc"));
+            row.easy_getCell(8).setValue(cryption.encryptData(row.easy_getCell(0).getValue(), "eecc"));
+        }
+        closeSheet();    
+    }
+    public void decryptSheet()
+    {
+        Update();    
+        Encryption cryption = new Encryption();
+        //sets all of the values of the excel sheet to their decrypted value
+        ExcelRow row;
+        int rowCount = spreadsheet.RowCount();       
+        for(int i = 2; i < rowCount;i++)
+        {
+            row = spreadsheet.easy_getRowAt(i);
+            row.easy_getCell(0).setValue(cryption.decryptData(row.easy_getCell(0).getValue(), "eecc"));
+            row.easy_getCell(1).setValue(cryption.decryptData(row.easy_getCell(1).getValue(), "eecc"));
+            row.easy_getCell(2).setValue(cryption.decryptData(row.easy_getCell(2).getValue(), "eecc"));
+            row.easy_getCell(3).setValue(cryption.decryptData(row.easy_getCell(3).getValue(), "eecc"));
+            row.easy_getCell(4).setValue(cryption.decryptData(row.easy_getCell(4).getValue(), "eecc"));
+            row.easy_getCell(5).setValue(cryption.decryptData(row.easy_getCell(5).getValue(), "eecc"));
+            row.easy_getCell(6).setValue(cryption.decryptData(row.easy_getCell(6).getValue(), "eecc"));
+            row.easy_getCell(7).setValue(cryption.decryptData(row.easy_getCell(7).getValue(), "eecc"));
+            row.easy_getCell(8).setValue(cryption.decryptData(row.easy_getCell(8).getValue(), "eecc"));
+        }
+        closeSheet(); 
+    }
     /*Writes to and then closes the spreadsheet*/
     public void closeSheet()
     {

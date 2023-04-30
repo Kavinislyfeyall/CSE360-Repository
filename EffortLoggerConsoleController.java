@@ -144,46 +144,12 @@ public class EffortLoggerConsoleController {
 
     @FXML
     void EncryptDataButton(ActionEvent event) {
-        Update();    
-        //sets all of the values of the excel sheet to their encrypted values
-        ExcelRow row;
-        int rowCount = spreadsheet.RowCount();       
-        for(int i = 2; i < rowCount;i++)
-        {
-            row = spreadsheet.easy_getRowAt(i);
-            row.easy_getCell(0).setValue(dataEncrypt(row.easy_getCell(0).getValue(), "eecc"));
-            row.easy_getCell(1).setValue(dataEncrypt(row.easy_getCell(1).getValue(), "eecc"));
-            row.easy_getCell(2).setValue(dataEncrypt(row.easy_getCell(2).getValue(), "eecc"));
-            row.easy_getCell(3).setValue(dataEncrypt(row.easy_getCell(3).getValue(), "eecc"));
-            row.easy_getCell(4).setValue(dataEncrypt(row.easy_getCell(0).getValue(), "eecc"));
-            row.easy_getCell(5).setValue(dataEncrypt(row.easy_getCell(0).getValue(), "eecc"));
-            row.easy_getCell(6).setValue(dataEncrypt(row.easy_getCell(0).getValue(), "eecc"));
-            row.easy_getCell(7).setValue(dataEncrypt(row.easy_getCell(0).getValue(), "eecc"));
-            row.easy_getCell(8).setValue(dataEncrypt(row.easy_getCell(0).getValue(), "eecc"));
-        }
-        closeSheet();    
+        DBH.encryptSheet();
     }
     
     @FXML
     void DecryptDataButton(ActionEvent event) {
-        Update();    
-        //sets all of the values of the excel sheet to their decrypted value
-        ExcelRow row;
-        int rowCount = spreadsheet.RowCount();       
-        for(int i = 2; i < rowCount;i++)
-        {
-            row = spreadsheet.easy_getRowAt(i);
-            row.easy_getCell(0).setValue(dataDecrypt(row.easy_getCell(0).getValue(), "eecc"));
-            row.easy_getCell(1).setValue(dataDecrypt(row.easy_getCell(1).getValue(), "eecc"));
-            row.easy_getCell(2).setValue(dataDecrypt(row.easy_getCell(2).getValue(), "eecc"));
-            row.easy_getCell(3).setValue(dataDecrypt(row.easy_getCell(3).getValue(), "eecc"));
-            row.easy_getCell(4).setValue(dataDecrypt(row.easy_getCell(4).getValue(), "eecc"));
-            row.easy_getCell(5).setValue(dataDecrypt(row.easy_getCell(5).getValue(), "eecc"));
-            row.easy_getCell(6).setValue(dataDecrypt(row.easy_getCell(6).getValue(), "eecc"));
-            row.easy_getCell(7).setValue(dataDecrypt(row.easy_getCell(7).getValue(), "eecc"));
-            row.easy_getCell(8).setValue(dataDecrypt(row.easy_getCell(8).getValue(), "eecc"));
-        }
-        closeSheet();    
+        DBH.decryptSheet();   
     }
 
     @FXML
