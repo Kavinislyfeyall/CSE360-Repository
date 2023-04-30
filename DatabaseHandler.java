@@ -151,20 +151,30 @@ public class DatabaseHandler
     public void addListProject(String projectType)
     {
         Update();
-        int i = 1;
+        int i = 1;        
         ExcelRow row = spreadsheetList.easy_getRowAt(i); 
         while(!row.easy_getCell(0).getValue().isEmpty())
-        {
-            i++;
-            try{
-            row = spreadsheetList.easy_getRowAt(i);
-        }
-        catch(IndexOutOfBoundsException e)
-        {                   
-            spreadsheetList.easy_getCell(i,0).setValue(projectType + "");    
-            break;
-        }
-        }                          
+        {             
+            if(projectType.equals(row.easy_getCell(0).getValue()))
+            {
+                break;
+            }
+            i++; 
+            try
+                  {
+                    row = spreadsheetList.easy_getRowAt(i);  
+                  }
+                  catch(IndexOutOfBoundsException e)
+                  {
+                    spreadsheetList.easy_getCell(i,0).setValue(projectType + "");
+                     break; 
+                  }
+                  if(row.easy_getCell(0).getValue().isEmpty())
+            {
+                    spreadsheetList.easy_getCell(i,0).setValue(projectType + "");
+                    break; 
+            }
+        }              
         closeSheet();
     }  
     /*Create a arraylist of the project names*/
@@ -203,6 +213,10 @@ public class DatabaseHandler
                 row = spreadsheetList.easy_getRowAt(j);
                 while(!row.easy_getCell(1).getValue().isEmpty())
                 { 
+                    if(lifecycleStep.equals(row.easy_getCell(1).getValue()))
+                    {
+                    break;
+                    }
                   j++;  
                   try
                   {
@@ -256,13 +270,12 @@ public class DatabaseHandler
         Update();
         int i = 1;        
         ExcelRow row = spreadsheetList.easy_getRowAt(i); 
-        while(!row.easy_getCell(0).getValue().isEmpty())
-        {                                                                        
-            if(row.easy_getCell(3).getValue().isEmpty())
+        while(!row.easy_getCell(3).getValue().isEmpty())
+        {            
+            if(effortCategory.equals(row.easy_getCell(3).getValue()))
             {
-                    spreadsheetList.easy_getCell(i,3).setValue(effortCategory + "");
-                    break; 
-            }                                           
+                break;
+            }
             i++; 
             try
                   {
@@ -273,6 +286,11 @@ public class DatabaseHandler
                     spreadsheetList.easy_getCell(i,3).setValue(effortCategory + "");
                      break; 
                   }
+            if(row.easy_getCell(3).getValue().isEmpty())
+            {
+                    spreadsheetList.easy_getCell(i,3).setValue(effortCategory + "");
+                    break; 
+            }  
         }              
         closeSheet();
     }  
@@ -312,6 +330,10 @@ public class DatabaseHandler
                 row = spreadsheetList.easy_getRowAt(j);
                 while(!row.easy_getCell(4).getValue().isEmpty())
                 { 
+                  if(plans.equals(row.easy_getCell(4).getValue()))
+                    {
+                    break;
+                    }
                   j++;  
                   try
                   {
