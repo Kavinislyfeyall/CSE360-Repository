@@ -75,5 +75,24 @@
             </AnchorPane>
         </content>
       </Tab>
+	<Tab text="Effort Logger Remover">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="26.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" width="600.0" />
+                  <Label alignment="CENTER" layoutY="1.0" prefHeight="25.0" prefWidth="600.0" text="Effort Logger Adder" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="39.0" prefHeight="17.0" prefWidth="491.0" text="1. Select project entry to remove." />                                                      
+                  <Button layoutX="22.0" layoutY="174.0" mnemonicParsing="false" onAction="#RemoveButton" text="Remove" />
+                  <Label fx:id="IncorrectRemove" layoutX="14.0" layoutY="208.0" prefHeight="17.0" prefWidth="231.0" text="Missing Information" textFill="#ae0000" />
+                  <Label fx:id="RemovedText" layoutX="14.0" layoutY="208.0" prefHeight="17.0" prefWidth="231.0" text="Removed" />
+                  <ComboBox fx:id="RemoverList" layoutX="17.0" layoutY="66.0" prefWidth="150.0" />                  
+               </children>
+            </AnchorPane>
+        </content>
+      </Tab>
    </tabs>
 </TabPane>

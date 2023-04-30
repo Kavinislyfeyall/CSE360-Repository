@@ -47,6 +47,15 @@ public class EffortLoggerConsoleController {
 
     @FXML
     private Label AddedText;
+    
+    @FXML
+    private Label RemovedText;
+    
+    @FXML
+    private Label IncorrectRemove;
+    
+    @FXML
+    private ComboBox<String> RemoverList;
 
     @FXML
     private ComboBox<String> WhichBlankList;
@@ -72,6 +81,8 @@ public class EffortLoggerConsoleController {
         IncorrectAdd.setVisible(false);
         WhichBlankText.setVisible(false);
         WhichBlankList.setVisible(false);
+        IncorrectRemove.setVisible(false);
+        RemovedText.setVisible(false);
         AdderList.getItems().add("Project");
         AdderList.getItems().add("Life Cycle Step");
         AdderList.getItems().add("Deliverable");
@@ -79,7 +90,7 @@ public class EffortLoggerConsoleController {
         EffortChoiceBox.getItems().add("Deliverables");
         EffortChoiceBox.getItems().add("Interruptions");
         EffortChoiceBox.getItems().add("Defects");
-        EffortChoiceBox.getItems().add("Others");
+        EffortChoiceBox.getItems().add("Others");        
         DBH.Create();
         DBH.addListEffort("Plans");
         DBH.addListEffort("Deliverables");
@@ -91,7 +102,11 @@ public class EffortLoggerConsoleController {
         {
             ProjectChoiceBox.getItems().add(temp1);
         }
-        
+        temp = DBH.printWholeList();
+        for(String temp1 : temp)
+        {
+            RemoverList.getItems().add(temp1);
+        }
     }
 
     @FXML
@@ -103,16 +118,19 @@ public class EffortLoggerConsoleController {
                 WhichBlankList.getItems().clear();
                 WhichBlankList.getItems().addAll(ProjectChoiceBox.getItems());
                 WhichBlankList.setVisible(true);
+                AddedText.setVisible(false);
             }else if(AdderList.getValue().equals("Deliverable")){
                 WhichBlankText.setText("Which Effort Category");
                 WhichBlankText.setVisible(true);
                 WhichBlankList.getItems().clear();
                 WhichBlankList.getItems().addAll(EffortChoiceBox.getItems());
                 WhichBlankList.setVisible(true);
+                AddedText.setVisible(false);
             }else{
                 WhichBlankList.getItems().clear();
                 WhichBlankText.setVisible(false);
                 WhichBlankList.setVisible(false);
+                AddedText.setVisible(false);
             }
         }
     }
@@ -143,6 +161,12 @@ public class EffortLoggerConsoleController {
         else
         {
             DBH.addData(projectName, LCStep, effortCat, startTime, LocalTime.now(), Deliverable, Other);  
+        }
+        RemoverList.getItems().clear();
+        ArrayList<String> temp = DBH.printWholeList();
+        for(String temp1 : temp)
+        {
+            RemoverList.getItems().add(temp1);
         }
         }
         else
@@ -240,5 +264,31 @@ public class EffortLoggerConsoleController {
             }
         }
         return true;
+    }
+    
+    @FXML
+    void RemoveButton(ActionEvent event) {
+        String namedType = RemoverList.getValue();
+        if(!namedType.isEmpty() || namedType != null){
+            int temp = (RemoverList.getSelectionModel().getSelectedIndex()+1);
+            DBH.Remove(temp + "");
+            RemoverList.getItems().clear();
+            ArrayList<String> tempL = DBH.printWholeList();
+            for(String temp1 : tempL)
+            {   
+            RemoverList.getItems().add(temp1);
+            }
+            IncorrectRemove.setVisible(false);
+            RemovedText.setVisible(true);             
+        }else{
+            RemovedText.setVisible(false);
+            IncorrectRemove.setVisible(true);
+        } 
+        ProjectChoiceBox.getItems().clear();
+        ArrayList<String> tempP = DBH.findListProject();
+        for(String temp1 : tempP)
+        {
+                    ProjectChoiceBox.getItems().add(temp1);
+        }
     }
 }
