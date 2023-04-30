@@ -57,19 +57,5 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
         </content>
       </Tab>
-      <Tab text="Password for Log Access">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <Text layoutX="14.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3. Save the file as &quot;pw&quot; (the .txt extension is handled)" wrappingWidth="289.87030029296875" />
-                  <TextField fx:id="NewPasswordTextField" layoutX="128.0" layoutY="122.0" promptText="Enter New Password" />
-                  <Text layoutX="14.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New File Password" wrappingWidth="102.13677978515625" />
-                  <Button fx:id="SavePasswordButton" layoutX="538.0" layoutY="360.0" mnemonicParsing="false" onAction="#SavePasswordButton" text="Save" />
-                  <Text layoutX="14.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1. Enter the new password for your log file. " wrappingWidth="551.1924438476562" />
-                  <Text layoutX="14.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2. Click Save and save the file in the (C: drive directory)" wrappingWidth="310.13671875" />
-               </children>
-            </AnchorPane>
-        </content>
-      </Tab>   
    </tabs>
 </TabPane>
