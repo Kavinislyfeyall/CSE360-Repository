@@ -17,6 +17,7 @@ import java.util.Scanner;
 //Completes the users requirement of keep data in an excel sheet while allowing the user to delete and interact with data in the sheet.
 //Calculates the performance rate of the entries due to the customers need.
 //Also is in line with the users request for security as it has a password.
+//Allows for group collaboration as they can access the same sheet and create entries for the same project if they are on the same computer.
 public class DatabaseHandler
 {
     private ExcelDocument workbook;
