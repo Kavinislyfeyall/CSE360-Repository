@@ -14,6 +14,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 //Keeps the same general layout as the first effort logger as per the users request
+//This file in conjunction with the console controller FXML manages all buttons, event handlers, textfields, labels, and other GUI elements
 
 public class EffortLoggerConsoleController {
 
