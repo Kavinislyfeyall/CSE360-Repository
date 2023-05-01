@@ -14,6 +14,8 @@ import java.util.Scanner;
  *
  * @author Michael Harper
  */
+//Completes the users requirement of keep data in an excel sheet while allowing the user to delete and interact with data in the sheet
+//Also is in line with the users request for security as it has a password.
 public class DatabaseHandler
 {
     private ExcelDocument workbook;
