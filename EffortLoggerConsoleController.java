@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+//Keeps the same general layout as the first effort logger as per the users request
 
 public class EffortLoggerConsoleController {
 
