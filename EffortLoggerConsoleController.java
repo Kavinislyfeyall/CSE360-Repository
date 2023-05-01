@@ -8,6 +8,10 @@ import javafx.scene.shape.Rectangle;
 import java.util.ArrayList;
 import java.time.*;
 import javafx.scene.control.Alert;
+import java.io.FileInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 
 public class EffortLoggerConsoleController {
@@ -72,6 +76,7 @@ public class EffortLoggerConsoleController {
     String effortCat;
     String Deliverable;
     String Other = "";
+    String pass = "";
     @FXML
     private void initialize() {
         EnterOtherDetailsText.setVisible(false);
@@ -90,15 +95,27 @@ public class EffortLoggerConsoleController {
         EffortChoiceBox.getItems().add("Deliverables");
         EffortChoiceBox.getItems().add("Interruptions");
         EffortChoiceBox.getItems().add("Defects");
-        EffortChoiceBox.getItems().add("Others");      
-        //Creates the database and fills the effort category in the list
-        DBH.Create();
+        EffortChoiceBox.getItems().add("Others");    
+        String file = "UserData.txt";
+        try{
+            File file1 = new File("psh.txt");
+            Scanner myReader;
+            myReader = new Scanner(file1);
+            pass = myReader.nextLine();
+            myReader.close();
+            System.out.println(pass);
+        }
+        catch(Exception e)
+        {
+            
+        }
+        DBH.pass = pass;
+        DBH.Create(pass);
         DBH.addListEffort("Plans");
         DBH.addListEffort("Deliverables");
         DBH.addListEffort("Interruptions");
         DBH.addListEffort("Defects");
         DBH.addListEffort("Others");
-        //If the spreadsheet already has information then it will fil the projectcombo box and removerlist combobox
         ArrayList<String> temp = DBH.findListProject();
         for(String temp1 : temp)
         {
@@ -151,7 +168,7 @@ public class EffortLoggerConsoleController {
 
     @FXML
     void StopActivity(ActionEvent event) {
-        //when you stop the activity, it will add it the entry to the spreadsheet, if the spreadsheet is not encrypted
+        
        if(DBH.isEnc() == 0)
        {
         ClockLabel.setText("Clock is stopped");

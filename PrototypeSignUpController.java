@@ -16,6 +16,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 
 public class PrototypeSignUpController {
 
@@ -63,6 +67,28 @@ public class PrototypeSignUpController {
         String Que1 = Question1.getText();
         String Que2 = Question2.getText();
         String Que3 = Question3.getText();
+        ;
+        File file1 = new File("psh.txt");
+        try{
+        file1.createNewFile();
+    }
+    catch(Exception e)
+    {
+    }
+        //file1.delete();
+        PrintWriter pw = null;
+        //Encryption eh = new Encryption();
+        try{
+        FileWriter fw = new FileWriter(file1, true);
+        pw = new PrintWriter(fw);
+        pw.println(Pass);
+        pw.close();
+    }
+    catch(Exception e)
+    {
+    }
+
+        
         if(goodPassword(Pass)){
             if(ansqueEmpty(Ans1, Ans2, Ans3, Que1, Que2, Que3)){
                 HashPBKDF obj = new HashPBKDF();

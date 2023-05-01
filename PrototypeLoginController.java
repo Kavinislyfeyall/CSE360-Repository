@@ -74,6 +74,8 @@ public class PrototypeLoginController {
         String Ans1 = Answer1.getText();
         String Ans2 = Answer2.getText();
         String Ans3 = Answer3.getText();
+        
+        
         HashPBKDF obj = new HashPBKDF();
         if(lockout != 0){
             if(obj.hashDataRead(User+Pass+Ans1+Ans2+Ans3, Ans1+User+Ans3+Ans2+Pass)){
