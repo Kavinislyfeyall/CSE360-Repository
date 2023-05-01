@@ -154,8 +154,8 @@ public class DatabaseHandler
         spreadsheet.easy_getCell(rowCount,columnCount+8).setValue(deliverable);
         spreadsheet.easy_getCell(rowCount,columnCount+9).setValue(other);
         Double temp = Double.valueOf(Duration.between(startTime, stopTime).toMinutes());
-        Double perform = Math.pow(Math.abs(temp-90),1.5)/4;
-        spreadsheet.easy_getCell(rowCount,columnCount+10).setValue((100-perform)+"");        
+        Double perform = Math.pow(1-(Math.abs(temp-90)/90),2);
+        spreadsheet.easy_getCell(rowCount,columnCount+10).setValue((100*perform)+"");        
         closeSheet();
     }
     public void addData(String projectType, String lifecycleStep, String effortCategory, LocalTime startTime, LocalTime stopTime, String deliverable)
@@ -174,8 +174,8 @@ public class DatabaseHandler
         spreadsheet.easy_getCell(rowCount,columnCount+7).setValue(effortCategory); 
         spreadsheet.easy_getCell(rowCount,columnCount+8).setValue(deliverable);  
         Double temp = Double.valueOf(Duration.between(startTime, stopTime).toMinutes());
-        Double perform = Math.pow(Math.abs(temp-90),1.5)/4;
-        spreadsheet.easy_getCell(rowCount,columnCount+10).setValue((100-perform)+"");   
+        Double perform = Math.pow(1-(Math.abs(temp-90)/90),2);
+        spreadsheet.easy_getCell(rowCount,columnCount+10).setValue((100*perform)+"");   
         closeSheet();
     } 
     /*All findlist and addlist methods add and search entries for the the choiceboxes*/
