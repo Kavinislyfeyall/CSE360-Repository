@@ -96,7 +96,7 @@ public class PrototypeLoginController {
                 }
             }else{
                 lockout--;
-                Incorrect.setText("Inocrrect Information  Tries left: " + lockout);;
+                Incorrect.setText("Incorrect Information  Tries left: " + lockout);;
                 Incorrect.setVisible(true);
             }
         }
