@@ -67,6 +67,10 @@ public class PrototypeLoginController {
         }
     }
 
+    //when the user clicks the login button, this function will check to see if the information that they have entered was correct
+    //to the information that is stored in the userdata file and allow them access to the effort logger or disallow them access to the effort logger
+    //This allows us to secure our client's employees' data more carefully, making sure that not just anybody can access it and that there is a 
+    //username, password as well as security questions needed for this to occur.
     @FXML
     void LoginClick(ActionEvent event) {
         String User = Username.getText();
