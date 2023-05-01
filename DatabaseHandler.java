@@ -14,7 +14,8 @@ import java.util.Scanner;
  *
  * @author Michael Harper
  */
-//Completes the users requirement of keep data in an excel sheet while allowing the user to delete and interact with data in the sheet
+//Completes the users requirement of keep data in an excel sheet while allowing the user to delete and interact with data in the sheet.
+//Calculates the performance rate of the entries due to the customers need.
 //Also is in line with the users request for security as it has a password.
 public class DatabaseHandler
 {
