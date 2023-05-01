@@ -1,3 +1,8 @@
+//By: Thomas Tung
+//CSE 360 Final Deliverable Effort Logger
+//This class allows for the incorporation of hashing user credentials and making sure that they are stored in a secure
+//mennr that cannot be breached.
+
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
