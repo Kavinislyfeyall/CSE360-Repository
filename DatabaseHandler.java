@@ -600,6 +600,8 @@ public class DatabaseHandler
             row.easy_getCell(6).setValue(cryption.encryptData(row.easy_getCell(6).getValue(), "eecc"));
             row.easy_getCell(7).setValue(cryption.encryptData(row.easy_getCell(7).getValue(), "eecc"));
             row.easy_getCell(8).setValue(cryption.encryptData(row.easy_getCell(8).getValue(), "eecc"));
+            row.easy_getCell(10).setValue(cryption.encryptData(row.easy_getCell(10).getValue(), "eecc"));
+
         }
     }
         encSpreadsheet.easy_getCell(0,0).setValue("1");
@@ -626,6 +628,7 @@ public class DatabaseHandler
             row.easy_getCell(6).setValue(cryption.decryptData(row.easy_getCell(6).getValue(), "eecc"));
             row.easy_getCell(7).setValue(cryption.decryptData(row.easy_getCell(7).getValue(), "eecc"));
             row.easy_getCell(8).setValue(cryption.decryptData(row.easy_getCell(8).getValue(), "eecc"));
+            row.easy_getCell(10).setValue(cryption.decryptData(row.easy_getCell(10).getValue(), "eecc"));
         }
     }
         encSpreadsheet.easy_getCell(0,0).setValue("0");
