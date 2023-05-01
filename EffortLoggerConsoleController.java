@@ -90,13 +90,15 @@ public class EffortLoggerConsoleController {
         EffortChoiceBox.getItems().add("Deliverables");
         EffortChoiceBox.getItems().add("Interruptions");
         EffortChoiceBox.getItems().add("Defects");
-        EffortChoiceBox.getItems().add("Others");        
+        EffortChoiceBox.getItems().add("Others");      
+        //Creates the database and fills the effort category in the list
         DBH.Create();
         DBH.addListEffort("Plans");
         DBH.addListEffort("Deliverables");
         DBH.addListEffort("Interruptions");
         DBH.addListEffort("Defects");
         DBH.addListEffort("Others");
+        //If the spreadsheet already has information then it will fil the projectcombo box and removerlist combobox
         ArrayList<String> temp = DBH.findListProject();
         for(String temp1 : temp)
         {
@@ -149,7 +151,7 @@ public class EffortLoggerConsoleController {
 
     @FXML
     void StopActivity(ActionEvent event) {
-        
+        //when you stop the activity, it will add it the entry to the spreadsheet, if the spreadsheet is not encrypted
        if(DBH.isEnc() == 0)
        {
         ClockLabel.setText("Clock is stopped");
