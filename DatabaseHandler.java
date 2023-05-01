@@ -31,15 +31,18 @@ public class DatabaseHandler
         else
         {                
             workbook = new ExcelDocument(3);
+            //Create a sheet with 3 sheets
             workbook.easy_getSheetAt(0).setSheetName("Project Data");
             workbook.easy_getSheetAt(1).setSheetName("List Information");
             workbook.easy_getSheetAt(2).setSheetName("Encryption Validator");
             workbook.easy_getSheetAt(2).setSheetProtected(true);
+            //Write the file to EffortLoggerDatabase.xlsx
             workbook.easy_WriteXLSXFile("EffortLoggerDatabase.xlsx");
             spreadsheet = ((ExcelWorksheet)workbook.easy_getSheet("Project Data")).easy_getExcelTable();    
             spreadsheetList = ((ExcelWorksheet)workbook.easy_getSheet("List Information")).easy_getExcelTable(); 
             encSpreadsheet = ((ExcelWorksheet)workbook.easy_getSheet("Encryption Validator")).easy_getExcelTable();
             closeSheet();
+            //Initialize the sheet
             initSheet();
         }
     } 
@@ -49,10 +52,10 @@ public class DatabaseHandler
             Update();
             int rowCount = spreadsheet.RowCount();             
             columnCount = 0;
-            
+            //set the value of encryption
             encSpreadsheet.easy_getCell(0,0).setValue("0");
            
-           
+           //Set the headers for the sheets
             spreadsheet.easy_getCell(rowCount,columnCount).setFontSize(24);
             String temp = "Effort Logger:";
             spreadsheet.easy_getCell(rowCount,columnCount).setValue(temp.toString());   
@@ -76,6 +79,7 @@ public class DatabaseHandler
             spreadsheet.easy_getCell(rowCount+1,columnCount+8).setValue(temp.toString());
             temp = "Other:";
             spreadsheet.easy_getCell(rowCount+1,columnCount+9).setValue(temp.toString());
+        //Set the formatting
             spreadsheet.setColumnWidth(1,80);
             spreadsheet.setColumnWidth(2,80);
             spreadsheet.setColumnWidth(3,80);
@@ -110,9 +114,11 @@ public class DatabaseHandler
     public void Update()
     {
         try {            
+            //Check for the file and update the current databasehandler object to have data from the newly updated excel file
             FileInputStream inputStream = new FileInputStream(new File(file));
             workbook = new ExcelDocument(0);
             workbook.easy_LoadXLSXFile(file);
+            //Update the local sheet variables
             spreadsheet = ((ExcelWorksheet)workbook.easy_getSheet("Project Data")).easy_getExcelTable();
             spreadsheetList = ((ExcelWorksheet)workbook.easy_getSheet("List Information")).easy_getExcelTable();  
             encSpreadsheet = ((ExcelWorksheet)workbook.easy_getSheet("Encryption Validator")).easy_getExcelTable();
@@ -126,10 +132,12 @@ public class DatabaseHandler
     /*Adds items to a spreadsheet*/
     public void addData(String projectType, String lifecycleStep, String effortCategory, LocalTime startTime, LocalTime stopTime, String deliverable, String other)
     {
+        //update all variables with current information
         Update();
         int rowCount = spreadsheet.RowCount();  
         columnCount = 0;
         int entryNumber = rowCount - 1;
+        //add new entry to the sheet
         spreadsheet.easy_getCell(rowCount,columnCount).setValue(entryNumber + "");
         spreadsheet.easy_getCell(rowCount,columnCount+1).setValue(projectType);
         spreadsheet.easy_getCell(rowCount,columnCount+2).setValue(LocalDate.now()+"");    
@@ -162,7 +170,7 @@ public class DatabaseHandler
     /*All findlist and addlist methods add and search entries for the the choiceboxes*/
     /*Add a project name to the database list*/
     public void addListProject(String projectType)
-    {
+    {        
         Update();
         int i = 1;        
         ExcelRow row = spreadsheetList.easy_getRowAt(i); 
@@ -190,9 +198,10 @@ public class DatabaseHandler
         }              
         closeSheet();
     }  
-    
+    //Removes items from the list database if there is no entries of it in the main database
     public void removeListProject(String projectType)
     {        
+        //Deletes Projects from the list database
         int i = 1;        
         ExcelRow row = spreadsheetList.easy_getRowAt(i); 
         while(!row.easy_getCell(0).getValue().isEmpty())
@@ -238,7 +247,8 @@ public class DatabaseHandler
                      break; 
                   }                  
         }    
-        i = 1;         
+        i = 1;   
+        //Deletes any Life cycles associated with the deleted project
         row = spreadsheetList.easy_getRowAt(i); 
         while(!row.easy_getCell(1).getValue().isEmpty())
         {
@@ -487,7 +497,7 @@ public class DatabaseHandler
        closeSheet();
        return temp;
     }
-    
+    //Returns an arraylist with all of the entries in it
     public ArrayList<String> printWholeList()
     {
         Update();
@@ -496,6 +506,7 @@ public class DatabaseHandler
         ArrayList<String> temp = new ArrayList<>();
         ExcelRow row = new ExcelRow();
         try{
+            //checks if its empty
         row = spreadsheet.easy_getRowAt(i); 
         }
         catch(IndexOutOfBoundsException e)
@@ -546,6 +557,7 @@ public class DatabaseHandler
                 }                
             }
         }
+        //checks if there is still entries from a project
         int Multiple = 0;
         for (int i = 2; i < rowCount; i++) {
             ExcelRow row = spreadsheet.easy_getRowAt(i);            
@@ -556,6 +568,7 @@ public class DatabaseHandler
         }
         if(Multiple == 0)
         {
+            //if there is no entries left then remove all associated things from the list database
            removeListProject(rowCheck.easy_getCell(1).getValue());           
         }
         closeSheet();
@@ -583,6 +596,7 @@ public class DatabaseHandler
             row.easy_getCell(8).setValue(cryption.encryptData(row.easy_getCell(8).getValue(), "eecc"));
         }
     }
+        //updates the encrypted value
         encSpreadsheet.easy_getCell(0,0).setValue("1");
         closeSheet();    
     }
@@ -609,12 +623,14 @@ public class DatabaseHandler
             row.easy_getCell(8).setValue(cryption.decryptData(row.easy_getCell(8).getValue(), "eecc"));
         }
     }
+        //updates encrypted value
         encSpreadsheet.easy_getCell(0,0).setValue("0");
         closeSheet(); 
     }
     /*Writes to and then closes the spreadsheet*/
     public void closeSheet()
     {
+        //Closes the sheet to prevent data leaks
         try{
             FileOutputStream outputStream = new FileOutputStream("EffortLoggerDatabase.xlsx");
             workbook.easy_WriteXLSXFile("EffortLoggerDatabase.xlsx");
@@ -689,6 +705,7 @@ public class DatabaseHandler
         closeSheet();  
         return 0;                        
     }
+    //Checks if the spreadsheet is encrypted or not
     public int isEnc()
     {
         Update();
